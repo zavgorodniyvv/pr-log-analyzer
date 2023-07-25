@@ -24,7 +24,7 @@ def parse_trace_id_in_start_line(line):
     trace_id_last_index = 0
     if line.__contains__('Get historical'):
         trace_id_start_index = line.index("with traceId") + "with traceId ".__len__()
-        trace_id_last_index = trace_id_start_index + 24
+        trace_id_last_index = line.index(": {")
     else:
         trace_id_start_index = line.index("with traceId: ") + "with traceId: ".__len__()
         trace_id_last_index = trace_id_start_index + 24
@@ -56,7 +56,7 @@ def parse_last_session_line(line):
     try:
         times_dic = traceId_to_time_dic[trace_id]
     except Exception as e:
-        print("Unexpected error. Reason:", e.__cause__)
+        print("Unexpected error. Reason:", e)
 
     times_dic.update({"end_time": end_session_datetime})
 
